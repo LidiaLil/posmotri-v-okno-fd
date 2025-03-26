@@ -16,6 +16,10 @@ html {
   font-family: 'Fira Sans Condensed', sans-serif;
   font-size: 18px;
   background-color: #1b1919;
+  display: flex;
+  justify-content: center; /*Расположить блок .content посередине .page.*/
+  align-items: center; /*Расположить блок .content посередине .page.*/
+   
 }
 
 h1,
@@ -38,14 +42,262 @@ ol {
 }
 
 /* Кастомный скроллбар */
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgb(217 217 217 / 10%);
+  background: rgb(217 217 217 / 0.1);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
+
+.content {
+  display: grid;
+  grid-template-columns: 711px 399px; /*  с этими выходит за пределы, попробовать, когда задам размер видео*/
+  gap: 30px;
+  grid-template-areas: 'main list'; /*Расположить элементы .content в строку,*/
+  align-items: end; /* прижав к низу вертикальной оси. */
+}
+
+.result {
+  grid-area: main;
+  width: 100%;
+}
+
+.result__video-container {
+  inline-size: 711px;  /*Задайте размеры контейнеру*/
+  block-size: 386px;
+  margin-bottom: 16px; /*добавьте отступ снизу*/
+  position: relative;
+}
+
+.result__video {
+  width: 100%; /*видео занимало всю ширину и высоту*/ 
+  height: 100%;
+  object-fit: cover; /*и не выходило за пределы. Используйте object-fit.*/
+}
+
+.search-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.search-form__fieldset{
+  border: none;
+}
+.search-form__fieldset-title{
+font-weight: 400;
+font-size: 18px;
+line-height: 100%;
+margin-bottom: 5px;
+}
+.search-form__label { /*у инпутов для поиска городов и времени суток.*/
+  display: flex;
+  width: fit-content;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.search-form__textfield {/*например, город*/
+  min-width: 225px;
+  min-height: 27px;
+  border: none;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  font-family: Fira Sans Condensed;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  background-color: transparent;
+  color: #FFFFFFB2;
+  appearance: none;
+  cursor: pointer;
+}
+/*Факультативный шаг текстовое поле*/
+.search-form__textfield:focus {
+  outline: none;  /*нужно сбросить обводку в состоянии фокуса */
+}
+
+.search-form__checkbox:focus {
+  outline: none;
+}
+  
+.search-form__label:has(:focus-visible) { /*Лейбл должен получать границу в состоянии :focus-visible*/
+  outline: 1px solid #fff;
+}
+
+.search-form__label:hover .search-form__label-text {
+  text-decoration: underline;
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.search-form__checkbox-list { /* день ночь утро*/
+  display: flex; /*Обёртка чтобы выстроить чекбоксы в линию.*/
+  gap: 15px;
+}
+
+.search-form__pseudo-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 19px;
+  width: 19px;
+  border: 1px solid #fff;
+  }
+
+.search-form__checkbox:checked + .search-form__pseudo-checkbox::after {
+  content: '';
+  width: 17px;           /* На 1px меньше чекбокса (19px - 2px border) */
+  height: 17px;
+  background-color: white;
+  }
+
+.button {
+font-family: Fira Sans Condensed;
+font-weight: 700;
+font-size: 18px;
+line-height: 100%;
+border: 1px solid #FFFFFF;
+color: #FFFFFF;
+background-color: transparent;
+height: 34px;
+cursor: pointer;
+}
+.search-form__submit-button {
+  min-width: 194px;
+  align-self: flex-end; /* задайте положение в конце контейнера и размер.*/
+}
+.more-button {
+  width: 100%;
+}
+
+.button:hover {
+text-decoration: underline;
+}
+.button:active {
+ background: #545050;
+}
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: 1px solid #FFFFFF;
+}
+
+.content__details {
+  grid-area: list;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%; /* Растянутьна всю доступную ширину контейнера */
+  height: 100%; /*Растянутьна всю доступную высоту контейнера*/
+  gap: 26px; /*добавить отступы между заголовком и зоной с карточками */
+}
+.title {
+  font-family:'Oswald',sans-serif;
+  font-weight: 700;
+  font-size: 75px;
+  line-height: 94%;
+  text-transform: uppercase;
+
+}
+.content__accent {
+  color: rgba(84, 80, 80, 1);
+
+}
+.content__list-container {
+  height: 298px; /*Установить вертикальный размер */
+  width: 394px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+}
+.content__list {
+  display: grid;
+  gap: 30px; /*Создайте вертикальные отступы между элементами .content__list-item. Используйте свойство gap.*/
+}
+
+.content__list-item {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.content__card-link {
+  text-decoration: none;
+  color: #FFFFFF;
+  display: block;/* Сделайте карточку блочным элементом.*/
+}
+
+.content__card-link_current {
+  background-color: #545050;
+}
+
+.content__card-link:hover {
+ text-decoration: underline;
+ cursor: pointer;
+}
+.content__card-link:active {
+background-color:#545050;
+;
+}
+.content__card-link:focus {
+  outline: none;
+}
+
+.content__card-link:focus-visible {
+  outline: 1px solid #FFFFFF;
+}
+.content__video-card {
+  display: flex; /*Расположите элементы внутри контейнера в строку */
+  align-items: flex-start; /*прижав к началу контейнера по дополнительной оси.*/
+}
+.content__video-card-description-container {
+  width: 196px;
+  height: 103px;
+  flex-grow: 1; /*занимал всё доступное пространство (не занятое картинкой).*/
+  margin-top: 4px;
+  margin-left: 2px;
+}
+.content__video-card-title {
+font-family: Oswald;/*Оформите текст */
+font-weight: 700;
+font-size: 30px;
+line-height: 100%;
+text-transform: uppercase;
+max-width: 196px; /*учтите возможность переполнения, заменяя излишний текст на “…”*/
+display: block;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+.content__video-card-description{
+font-family: Fira Sans Condensed;
+font-size: 18px;
+font-weight: 400;
+line-height: 16.2px;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+padding-bottom: 2px;/* чтобы не обрезались хвостики у букв снизу*/
+}
+.content__video-card-thumbnail {  
+  min-width: 194px; /*Задайте размеры*/
+  height: 103px;
+  object-fit: cover; /*расположите в них изображение так, чтобы оно закрывало весь элемент*/
+  object-position: center; /*выровнено по центру*/
+}
+
